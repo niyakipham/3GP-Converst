@@ -89,7 +89,6 @@ ffmpeg -y -i "$file" \
 ```
 <div align="right">
   <br>
-  <a href="#-design-by-t2"><kbd></kbd></a>
 </div>
 
 ## SERVICE
