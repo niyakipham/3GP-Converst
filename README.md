@@ -13,7 +13,7 @@
 
   <a href="#INTRODUCE"><kbd> <br> INTRODUCE <br> </kbd></a>&ensp;&ensp;
   <a href="#INSTALL"><kbd> <br> INSTALL <br> </kbd></a>&ensp;&ensp;
-  <a href="#CMD"><kbd> <br> CMD <br> </kbd></a>&ensp;&ensp;
+  <a href="#'CÁCH HOẠT ĐỘNG'"><kbd> <br> CÁCH HOẠT ĐỘNG <br> </kbd></a>&ensp;&ensp;
   <a href="#SERVICE"><kbd> <br> SERVICE <br> </kbd></a>&ensp;&ensp;
   <a href="#PRIVACY"><kbd> <br> PRIVACY <br> </kbd></a>&ensp;&ensp;
   <a href="https://discord.com/oauth2/authorize?client_id=1289528997088067606&permissions=2048&response_type=code&redirect_uri=https%3A%2F%2Fdiscord.com%2Foauth2%2Fauthorize%3Fclient_id%3D1289528997088067606%26permissions%3D8%26integration_type%3D0%26scope%3Dbot&integration_type=0&scope=bot+applications.commands.permissions.update"><kbd> <br> INVITE BOT <br> </kbd></a>&ensp;&ensp;
@@ -32,33 +32,30 @@ Tính năng nổi bật:
 
 💻 đặt tên thứ tự file ( ví dụ trong thư mục của bạn có 20 file thì chương trình sẽ dặt tên từng file 3gp là 1.3gp,... 20.3gp )
 
-AniKun là trợ thủ hoàn hảo cho mọi cộng đồng yêu thích anime trên Discord!
-
 <div align="right">
   <br>
   <a href="#-design-by-t2"><kbd> <br> 🡅 <br> </kbd></a>
 </div>
 
 ## INSTALL 
-```shell
-git clone https://github.com/niyakipham/anime-bot.git
-cd anime-bot
-pip install -r requirements.txt
-```
 
-Sau khi cài đặt xong hãy dán Token của bạn vào 
+Đối với ubuntu
 
 ```shell
-bot.run('DISCORD_TOKEN')
+sudo apt install ffmpeg
 ```
-CHÚC BẠN THÀNH CÔNG
+
+Đối với Arch linux
+```shell
+sudo pacman -S ffmpeg
+```
 
 <div align="right">
   <br>
   <a href="#-design-by-t2"><kbd> <br> 🡅 <br> </kbd></a>
 </div>
 
-## CMD
+## CÁCH HOẠT ĐỘNG
 Sau đây là những lệnh mà bot thực thi
 
 | Lệnh | Mô Tả |
