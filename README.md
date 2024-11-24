@@ -1,5 +1,4 @@
 <div align = center>
-    <a href="https://discord.gg/AYbJ9MJez7">
 <img alt="Dynamic JSON Badge" src="https://cdn1.iconfinder.com/data/icons/hawcons/32/699818-icon-55-file-3gp-512.png">
     </a>
 </div>
