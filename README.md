@@ -13,7 +13,7 @@
 
   <a href="#INTRODUCE"><kbd> <br> INTRODUCE <br> </kbd></a>&ensp;&ensp;
   <a href="#INSTALL"><kbd> <br> INSTALL <br> </kbd></a>&ensp;&ensp;
-  <a href="#'CÁCH HOẠT ĐỘNG'"><kbd> <br> CÁCH HOẠT ĐỘNG <br> </kbd></a>&ensp;&ensp;
+  <a href="#CMD"><kbd> <br> CMD <br> </kbd></a>&ensp;&ensp;
   <a href="#SERVICE"><kbd> <br> SERVICE <br> </kbd></a>&ensp;&ensp;
   <a href="#PRIVACY"><kbd> <br> PRIVACY <br> </kbd></a>&ensp;&ensp;
   <a href="https://discord.com/oauth2/authorize?client_id=1289528997088067606&permissions=2048&response_type=code&redirect_uri=https%3A%2F%2Fdiscord.com%2Foauth2%2Fauthorize%3Fclient_id%3D1289528997088067606%26permissions%3D8%26integration_type%3D0%26scope%3Dbot&integration_type=0&scope=bot+applications.commands.permissions.update"><kbd> <br> INVITE BOT <br> </kbd></a>&ensp;&ensp;
@@ -55,25 +55,41 @@ sudo pacman -S ffmpeg
   <a href="#-design-by-t2"><kbd> <br> 🡅 <br> </kbd></a>
 </div>
 
-## CÁCH HOẠT ĐỘNG
-Sau đây là những lệnh mà bot thực thi
+## CMD
 
-| Lệnh | Mô Tả |
-| :--- | :--- |
-| <kbd>!anime</kbd> | !anime + tên anime mà bạn muốn tìm kiếm|
-| <kbd>!awaifu</kbd> | Lệnh này sẽ random ảnh Anime Waifu |
-| <kbd>!aneko</kbd> | Lệnh này sẽ random ảnh Anime Neko |
-| <kbd>!akis</kbd> | Lệnh này sẽ random ảnh GIF Anime Hôn Nhau |
-| <kbd>!acuddle</kbd> | Lệnh này sẽ random ảnh GIF Anime Ôm Ấp |
-| <kbd>!apat</kbd> | Lệnh này sẽ random ảnh GIF Anime Vô Về |
-| <kbd>!xwaifu</kbd> | Lệnh này sẽ random ảnh Hentai Waifu |
-| <kbd>!xneko</kbd> | Lệnh này sẽ random ảnh Hentai Neko |
-| <kbd>!xtrap</kbd> | Lệnh này sẽ random ảnh Hentai LGBT |
-| <kbd>!xgif</kbd> | Lệnh này sẽ random ảnh GIF Hentai |
+### Giải thích chi tiết:
 
+1 Lặp qua tất cả các tệp .mp4 trong thư mục hiện tại
+```shell
+for file in *.mp4; do
+```
+
+2 Kiểm tra xem tệp có phải là .mp4 không
+```shell
+if [[ -f "$file" && "$file" == *.mp4 ]]; then
+
+```
+
+3 Tạo tên tệp đầu ra
+```shell
+output_file="$output_dir/$counter.3gp"
+```
+
+4 Chuyển đổi tệp .mp4 sang .3gp bằng ffmpeg 
+```shell
+ffmpeg -y -i "$file" \
+    -r 20 -s 352x288 -vb 400k \
+    -acodec aac -strict experimental -ac 1 -ar 8000 -ab 24k \
+    "$output_file"
+```
+
+5 Đặt tên file theo số thứ tự
+```shell
+((counter++))
+```
 <div align="right">
   <br>
-  <a href="#-design-by-t2"><kbd> <br> 🡅 <br> </kbd></a>
+  <a href="#-design-by-t2"><kbd> <br>  <br> </kbd></a>
 </div>
 
 ## SERVICE
