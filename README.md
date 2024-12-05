@@ -12,7 +12,7 @@
 
   <a href="#INTRODUCE"><kbd> <br> INTRODUCE <br> </kbd></a>&ensp;&ensp;
   <a href="#INSTALL"><kbd> <br> INSTALL <br> </kbd></a>&ensp;&ensp;
-  <a href="#CMD"><kbd> <br> CMD <br> </kbd></a>&ensp;&ensp;
+  <a href="#UPDATE"><kbd> <br> UPDATE <br> </kbd></a>&ensp;&ensp;
   <a href="#RUN"><kbd> <br> RUN <br> </kbd></a>&ensp;&ensp;
   <a href="#NOTE"><kbd> <br> NOTE <br> </kbd></a>&ensp;&ensp;
   </div><br><br>
@@ -49,7 +49,14 @@ sudo pacman -S ffmpeg
   <br>
 </div>
 
-## CMD
+## UPDATE
+
+- giảm 20 fps xuống 15 fps
+- giảm độ phân giải 
+- giảm bitrate video
+- giảm chất lượng video
+...
+
 
 ### Giải thích chi tiết:
 
