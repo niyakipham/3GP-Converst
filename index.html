@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3GP CONVERST - Video to 3GP Converter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #0f0f17;
+            color: #e0e0e0;
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 8px rgba(100, 255, 255, 0.7);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #4fd1c5;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .code-block {
+            background-color: #1a1a2e;
+            border-left: 3px solid #4fd1c5;
+        }
+        
+        .feature-icon {
+            color: #4fd1c5;
+            text-shadow: 0 0 5px rgba(79, 209, 197, 0.5);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f0f17 0%, #1a1a2e 100%);
+        }
+        
+        .section-divider {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(79, 209, 197, 0), rgba(79, 209, 197, 0.75), rgba(79, 209, 197, 0));
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <header class="mb-12 text-center">
+            <h1 class="text-5xl font-bold mb-4 glow-text text-cyan-400">3GP CONVERST</h1>
+            <p class="text-xl text-gray-300">VIDEO TO 3GP CONVERTER</p>
+        </header>
+        
+        <!-- Navigation -->
+        <nav class="mb-16 flex justify-center space-x-8">
+            <a href="#introduce" class="nav-link text-gray-300 hover:text-cyan-400 transition-colors">INTRODUCE</a>
+            <a href="#install" class="nav-link text-gray-300 hover:text-cyan-400 transition-colors">INSTALL</a>
+            <a href="#update" class="nav-link text-gray-300 hover:text-cyan-400 transition-colors">UPDATE</a>
+            <a href="#run" class="nav-link text-gray-300 hover:text-cyan-400 transition-colors">RUN</a>
+            <a href="#note" class="nav-link text-gray-300 hover:text-cyan-400 transition-colors">NOTE</a>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="space-y-16">
+            <!-- Introduce Section -->
+            <section id="introduce" class="scroll-mt-20">
+                <h2 class="text-3xl font-semibold mb-6 text-cyan-400 flex items-center">
+                    <i class="fas fa-info-circle mr-3 feature-icon"></i> INTRODUCE
+                </h2>
+                <div class="bg-gray-900 bg-opacity-50 rounded-xl p-6 shadow-lg">
+                    <h3 class="text-2xl font-medium mb-4 text-cyan-300">3GP CONVERST - VIDEO TO 3GP CONVERTER</h3>
+                    <p class="mb-6 text-gray-300">
+                        3GP CONVERST is a bash script that converts MP4 videos to 3GP format (the classic mobile phone video format).
+                    </p>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-3 text-cyan-300">Key Features:</h4>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-search mr-2 mt-1 feature-icon"></i>
+                                <span>Converts all MP4 videos to 3GP format</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-desktop mr-2 mt-1 feature-icon"></i>
+                                <span>Automatically names output files sequentially (e.g., 1.3gp, 2.3gp, etc.)</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-gray-800 rounded-lg p-4">
+                        <p class="text-sm text-gray-400 italic">
+                            <i class="fas fa-history mr-2"></i> Relive the nostalgia of early mobile video formats with this efficient conversion tool.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <hr class="section-divider my-12">
+            
+            <!-- Install Section -->
+            <section id="install" class="scroll-mt-20">
+                <h2 class="text-3xl font-semibold mb-6 text-cyan-400 flex items-center">
+                    <i class="fas fa-download mr-3 feature-icon"></i> INSTALL
+                </h2>
+                <div class="bg-gray-900 bg-opacity-50 rounded-xl p-6 shadow-lg">
+                    <div class="mb-6">
+                        <h4 class="text-xl font-medium mb-3 text-cyan-300">For Ubuntu:</h4>
+                        <div class="code-block p-4 rounded-lg mb-4">
+                            <code class="text-green-400">sudo apt install ffmpeg</code>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-xl font-medium mb-3 text-cyan-300">For Arch Linux:</h4>
+                        <div class="code-block p-4 rounded-lg">
+                            <code class="text-green-400">sudo pacman -S ffmpeg</code>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <hr class="section-divider my-12">
+            
+            <!-- Update Section -->
+            <section id="update" class="scroll-mt-20">
+                <h2 class="text-3xl font-semibold mb-6 text-cyan-400 flex items-center">
+                    <i class="fas fa-sync-alt mr-3 feature-icon"></i> UPDATE
+                </h2>
+                <div class="bg-gray-900 bg-opacity-50 rounded-xl p-6 shadow-lg">
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-down mr-2 mt-1 text-red-400"></i>
+                            <span>Reduces frame rate from 20 fps to 15 fps</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-down mr-2 mt-1 text-red-400"></i>
+                            <span>Reduces resolution</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-down mr-2 mt-1 text-red-400"></i>
+                            <span>Reduces video bitrate</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-down mr-2 mt-1 text-red-400"></i>
+                            <span>Reduces video quality</span>
+                        </li>
+                    </ul>
+                    
+                    <h4 class="text-xl font-medium mb-3 text-cyan-300">Technical Details:</h4>
+                    <div class="code-block p-4 rounded-lg text-sm">
+                        <pre class="text-gray-300 overflow-x-auto">
+<span class="text-cyan-400"># 1. Loop through all .mp4 files in current directory</span>
+<span class="text-purple-400">for</span> file <span class="text-purple-400">in</span> *.mp4; <span class="text-purple-400">do</span>
+    
+    <span class="text-cyan-400"># 2. Check if file is .mp4</span>
+    <span class="text-purple-400">if</span> [[ -f <span class="text-yellow-400">"$file"</span> &amp;&amp; <span class="text-yellow-400">"$file"</span> == *.mp4 ]]; <span class="text-purple-400">then</span>
+        
+        <span class="text-cyan-400"># 3. Create output filename</span>
+        output_file=<span class="text-yellow-400">"$output_dir/$counter.3gp"</span>
+        
+        <span class="text-cyan-400"># 4. Convert .mp4 to .3gp using ffmpeg</span>
+        ffmpeg -y -i <span class="text-yellow-400">"$file"</span> \
+            -r 20 -s 352x288 -vb 400k \
+            -acodec aac -strict experimental -ac 1 -ar 8000 -ab 24k \
+            <span class="text-yellow-400">"$output_file"</span>
+            
+        <span class="text-cyan-400"># 5. Increment counter for sequential naming</span>
+        ((counter++))
+    <span class="text-purple-400">fi</span>
+<span class="text-purple-400">done</span></pre>
+                    </div>
+                </div>
+            </section>
+            
+            <hr class="section-divider my-12">
+            
+            <!-- Run Section -->
+            <section id="run" class="scroll-mt-20">
+                <h2 class="text-3xl font-semibold mb-6 text-cyan-400 flex items-center">
+                    <i class="fas fa-play mr-3 feature-icon"></i> RUN
+                </h2>
+                <div class="bg-gray-900 bg-opacity-50 rounded-xl p-6 shadow-lg">
+                    <ol class="list-decimal list-inside space-y-3 text-gray-300">
+                        <li class="pl-2">Move all videos you want to convert into a single directory</li>
+                        <li class="pl-2">Copy the 3gp.sh executable file into that directory</li>
+                        <li class="pl-2">Run the file</li>
+                        <li class="pl-2">All MP4 videos will be converted to 3GP format in seconds</li>
+                    </ol>
+                    
+                    <div class="mt-6 bg-blue-900 bg-opacity-30 rounded-lg p-4 border border-blue-700">
+                        <p class="text-blue-300 flex items-start">
+                            <i class="fas fa-bolt mr-2 mt-1"></i>
+                            <span>The conversion process is optimized for speed while maintaining compatibility with older devices.</span>
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <hr class="section-divider my-12">
+            
+            <!-- Note Section -->
+            <section id="note" class="scroll-mt-20">
+                <h2 class="text-3xl font-semibold mb-6 text-cyan-400 flex items-center">
+                    <i class="fas fa-exclamation-triangle mr-3 feature-icon"></i> NOTE
+                </h2>
+                <div class="bg-gray-900 bg-opacity-50 rounded-xl p-6 shadow-lg">
+                    <div class="bg-red-900 bg-opacity-30 rounded-lg p-4 border border-red-700 mb-6">
+                        <p class="text-red-300 font-medium">
+                            <i class="fas fa-exclamation-circle mr-2"></i> IMPORTANT:
+                        </p>
+                        <p class="text-gray-300 mt-2">
+                            The output files may be LARGER in size than the input files. Before conversion, it's recommended to download videos at 144p quality to avoid excessive file sizes.
+                        </p>
+                    </div>
+                    
+                    <div class="text-center mt-8">
+                        <p class="text-xl text-gray-300">THANK YOU FOR READING</p>
+                        <p class="text-cyan-400 font-medium mt-2">NIYAKI PHẠM</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="mt-16 text-center text-gray-500 text-sm">
+            <p>© 2023 3GP CONVERST | A nostalgic video conversion tool</p>
+            <p class="mt-2">Designed with <i class="fas fa-heart text-red-400"></i> for retro tech enthusiasts</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Add glow effect on hover for main title
+        const title = document.querySelector('h1');
+        title.addEventListener('mouseover', () => {
+            title.classList.add('animate-pulse');
+        });
+        title.addEventListener('mouseout', () => {
+            title.classList.remove('animate-pulse');
+        });
+    </script>
+</body>
+</html>
