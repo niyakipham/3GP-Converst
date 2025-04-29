@@ -37,12 +37,12 @@ Tính năng nổi bật:
 Đối với ubuntu
 
 ```shell
-sudo apt install ffmpeg
+sudo apt install ffmpeg zenity
 ```
 
 Đối với Arch linux
 ```shell
-sudo pacman -S ffmpeg
+sudo pacman -S ffmpeg zenity
 ```
 
 <div align="right">
