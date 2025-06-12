@@ -1,268 +1,599 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3GP CONVERST - Video to 3GP Converter</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="3GP CONVERST là một công cụ chuyển đổi video MP4 sang định dạng 3GP siêu nhẹ bằng bash, được tối ưu hóa cho các dòng điện thoại cổ điển. Nhanh chóng, hiệu quả và dễ sử dụng.">
+    <meta name="keywords" content="3GP CONVERST, video to 3GP, convert mp4 to 3gp, 3gp converter, bash script, ffmpeg, zenity, niyakipham, video converter">
+    <meta name="author" content="NIYAKI PHẠM">
+    <meta property="og:title" content="3GP CONVERST - Trình Chuyển Đổi Video Sang 3GP Mạnh Mẽ">
+    <meta property="og:description" content="Công cụ chuyển đổi MP4 sang 3GP viết bằng bash, giúp bạn xem video trên các thiết bị di động cũ một cách dễ dàng.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-        
+        :root {
+            --dark-bg: #0A0A1A;
+            --card-bg: rgba(20, 20, 40, 0.4);
+            --border-color: rgba(100, 100, 220, 0.2);
+            --blur-strength: 15px;
+            --text-primary: rgba(240, 240, 255, 0.95);
+            --text-secondary: rgba(180, 180, 200, 0.7);
+            --accent-purple: #B026FF;
+            --accent-cyan: #00D1F5;
+            --transition-speed: 0.5s;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Space Grotesk', sans-serif;
-            background-color: #0f0f17;
-            color: #e0e0e0;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            cursor: none;
         }
-        
-        .glow-text {
-            text-shadow: 0 0 8px rgba(100, 255, 255, 0.7);
+
+        .cursor-follower {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent-purple), transparent, transparent);
+            filter: blur(150px);
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.15;
+            transition: transform 0.1s ease-out, opacity 0.3s;
         }
-        
-        .nav-link {
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 100px 20px;
             position: relative;
+            z-index: 2;
+        }
+
+        .animated-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px 40px;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(var(--blur-strength));
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .animated-card.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            display: inline-block;
+        }
+
+        .hero-title .letter {
+            display: inline-block;
+            opacity: 0;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
+            font-weight: 500;
+            margin-bottom: 25px;
+            text-shadow: 0 0 10px var(--accent-cyan);
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            max-width: 650px;
+            margin: 0 auto;
+            color: var(--text-secondary);
         }
         
-        .nav-link::after {
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .section-title::after {
             content: '';
             position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
+            bottom: 0;
             left: 0;
-            background-color: #4fd1c5;
-            transition: width 0.3s ease;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
         
-        .nav-link:hover::after {
-            width: 100%;
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 25px;
+            border-radius: 12px;
+            transition: all var(--transition-speed) ease;
         }
-        
-        .code-block {
-            background-color: #1a1a2e;
-            border-left: 3px solid #4fd1c5;
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background: var(--card-bg);
         }
-        
+
         .feature-icon {
-            color: #4fd1c5;
-            text-shadow: 0 0 5px rgba(79, 209, 197, 0.5);
+            font-size: 2rem;
+            color: var(--accent-cyan);
+        }
+
+        .feature-text h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-text p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .install-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            background-color: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background-color: var(--accent-purple);
+            color: #fff;
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 15px var(--accent-purple);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .code-block {
+            position: relative;
+            background-color: #0d0d1b;
+            color: #e0e0e0;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            border: 1px solid var(--border-color);
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent-cyan);
+            color: var(--dark-bg);
+        }
+
+        .explanation-list {
+            list-style: none;
         }
         
-        .gradient-bg {
-            background: linear-gradient(135deg, #0f0f17 0%, #1a1a2e 100%);
+        .explanation-item {
+            margin-bottom: 20px;
         }
         
-        .section-divider {
-            border: 0;
-            height: 1px;
-            background-image: linear-gradient(to right, rgba(79, 209, 197, 0), rgba(79, 209, 197, 0.75), rgba(79, 209, 197, 0));
+        .explanation-item h3 {
+            font-size: 1.25rem;
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
         }
+
+        .explanation-item h3 span {
+            display: inline-block;
+            background: var(--accent-purple);
+            color: #fff;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 15px;
+            font-weight: 700;
+        }
+        
+        .explanation-item p,
+        .explanation-item .code-block {
+            margin-left: 45px;
+            margin-top: 10px;
+            color: var(--text-secondary);
+        }
+
+        .run-steps {
+            list-style: none;
+        }
+
+        .run-step {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+            align-items: start;
+        }
+
+        .run-step-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .run-step-text {
+            color: var(--text-secondary);
+        }
+        
+        .note-card {
+            background: rgba(255, 100, 100, 0.1);
+            border-left: 5px solid red;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .note-card h3 {
+            color: rgb(255, 120, 120);
+            margin-bottom: 10px;
+        }
+
+        .note-card p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media(max-width: 768px) {
+            .container {
+                padding: 60px 20px;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .cursor-follower {
+                display: none;
+            }
+            body {
+                cursor: auto;
+            }
+        }
+
     </style>
 </head>
-<body class="min-h-screen gradient-bg">
-    <div class="container mx-auto px-4 py-8 max-w-4xl">
-        <!-- Header -->
-        <header class="mb-12 text-center">
-            <h1 class="text-5xl font-bold mb-4 glow-text text-cyan-400">3GP CONVERST</h1>
-            <p class="text-xl text-gray-300">VIDEO TO 3GP CONVERTER</p>
-        </header>
-        
-        <!-- Navigation -->
-        <nav class="mb-16 flex justify-center space-x-8">
-            <a href="#introduce" class="nav-link text-gray-300 hover:text-cyan-400 transition-colors">INTRODUCE</a>
-            <a href="#install" class="nav-link text-gray-300 hover:text-cyan-400 transition-colors">INSTALL</a>
-            <a href="#update" class="nav-link text-gray-300 hover:text-cyan-400 transition-colors">UPDATE</a>
-            <a href="#run" class="nav-link text-gray-300 hover:text-cyan-400 transition-colors">RUN</a>
-            <a href="#note" class="nav-link text-gray-300 hover:text-cyan-400 transition-colors">NOTE</a>
-        </nav>
-        
-        <!-- Main Content -->
-        <main class="space-y-16">
-            <!-- Introduce Section -->
-            <section id="introduce" class="scroll-mt-20">
-                <h2 class="text-3xl font-semibold mb-6 text-cyan-400 flex items-center">
-                    <i class="fas fa-info-circle mr-3 feature-icon"></i> INTRODUCE
-                </h2>
-                <div class="bg-gray-900 bg-opacity-50 rounded-xl p-6 shadow-lg">
-                    <h3 class="text-2xl font-medium mb-4 text-cyan-300">3GP CONVERST - VIDEO TO 3GP CONVERTER</h3>
-                    <p class="mb-6 text-gray-300">
-                        3GP CONVERST is a bash script that converts MP4 videos to 3GP format (the classic mobile phone video format).
-                    </p>
-                    
-                    <div class="mb-6">
-                        <h4 class="text-xl font-medium mb-3 text-cyan-300">Key Features:</h4>
-                        <ul class="space-y-2">
-                            <li class="flex items-start">
-                                <i class="fas fa-search mr-2 mt-1 feature-icon"></i>
-                                <span>Converts all MP4 videos to 3GP format</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-desktop mr-2 mt-1 feature-icon"></i>
-                                <span>Automatically names output files sequentially (e.g., 1.3gp, 2.3gp, etc.)</span>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <div class="bg-gray-800 rounded-lg p-4">
-                        <p class="text-sm text-gray-400 italic">
-                            <i class="fas fa-history mr-2"></i> Relive the nostalgia of early mobile video formats with this efficient conversion tool.
-                        </p>
-                    </div>
-                </div>
-            </section>
-            
-            <hr class="section-divider my-12">
-            
-            <!-- Install Section -->
-            <section id="install" class="scroll-mt-20">
-                <h2 class="text-3xl font-semibold mb-6 text-cyan-400 flex items-center">
-                    <i class="fas fa-download mr-3 feature-icon"></i> INSTALL
-                </h2>
-                <div class="bg-gray-900 bg-opacity-50 rounded-xl p-6 shadow-lg">
-                    <div class="mb-6">
-                        <h4 class="text-xl font-medium mb-3 text-cyan-300">For Ubuntu:</h4>
-                        <div class="code-block p-4 rounded-lg mb-4">
-                            <code class="text-green-400">sudo apt install ffmpeg</code>
+<body>
+
+    <div class="cursor-follower"></div>
+
+    <main>
+        <div class="container hero">
+            <h1 class="hero-title"></h1>
+            <h2 class="hero-subtitle">VIDEO TO 3GP CONVERTER</h2>
+            <p class="hero-description animated-card" data-visible>
+                3GP CONVERST là một trình chuyển đổi video mp4 thành 3gp được viết bằng bash, phục vụ hoàn hảo cho mục đích xem video trên các dòng điện thoại cổ điển.
+            </p>
+        </div>
+
+        <section id="features" class="container">
+            <div class="animated-card" data-visible>
+                <h2 class="section-title">Tính Năng Nổi Bật</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🔍</div>
+                        <div class="feature-text">
+                            <h3>Chuyển Đổi Hàng Loạt</h3>
+                            <p>Tự động tìm và chuyển đổi tất cả video có định dạng mp4 trong thư mục của bạn thành tệp 3gp.</p>
                         </div>
                     </div>
-                    
-                    <div>
-                        <h4 class="text-xl font-medium mb-3 text-cyan-300">For Arch Linux:</h4>
-                        <div class="code-block p-4 rounded-lg">
-                            <code class="text-green-400">sudo pacman -S ffmpeg</code>
+                    <div class="feature-item">
+                        <div class="feature-icon">💻</div>
+                        <div class="feature-text">
+                            <h3>Đặt Tên Tự Động</h3>
+                            <p>Các tệp đầu ra được đặt tên theo thứ tự. Ví dụ trong thư mục có 20 file, chương trình sẽ đặt tên từ 1.3gp, ..., 20.3gp.</p>
                         </div>
                     </div>
                 </div>
-            </section>
-            
-            <hr class="section-divider my-12">
-            
-            <!-- Update Section -->
-            <section id="update" class="scroll-mt-20">
-                <h2 class="text-3xl font-semibold mb-6 text-cyan-400 flex items-center">
-                    <i class="fas fa-sync-alt mr-3 feature-icon"></i> UPDATE
-                </h2>
-                <div class="bg-gray-900 bg-opacity-50 rounded-xl p-6 shadow-lg">
-                    <ul class="space-y-3 mb-6">
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-down mr-2 mt-1 text-red-400"></i>
-                            <span>Reduces frame rate from 20 fps to 15 fps</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-down mr-2 mt-1 text-red-400"></i>
-                            <span>Reduces resolution</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-down mr-2 mt-1 text-red-400"></i>
-                            <span>Reduces video bitrate</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-arrow-down mr-2 mt-1 text-red-400"></i>
-                            <span>Reduces video quality</span>
-                        </li>
-                    </ul>
-                    
-                    <h4 class="text-xl font-medium mb-3 text-cyan-300">Technical Details:</h4>
-                    <div class="code-block p-4 rounded-lg text-sm">
-                        <pre class="text-gray-300 overflow-x-auto">
-<span class="text-cyan-400"># 1. Loop through all .mp4 files in current directory</span>
-<span class="text-purple-400">for</span> file <span class="text-purple-400">in</span> *.mp4; <span class="text-purple-400">do</span>
+            </div>
+        </section>
+
+        <section id="install" class="container">
+            <div class="animated-card" data-visible>
+                <h2 class="section-title">Cài Đặt</h2>
+                <div class="install-tabs">
+                    <button class="tab-btn active" data-target="#ubuntu">Ubuntu</button>
+                    <button class="tab-btn" data-target="#arch">Arch Linux</button>
+                </div>
+                <div id="ubuntu" class="tab-content active">
+                    <div class="code-block" data-code>
+                        sudo apt install ffmpeg zenity
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                </div>
+                <div id="arch" class="tab-content">
+                    <div class="code-block" data-code>
+                        sudo pacman -S ffmpeg zenity
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="update" class="container">
+             <div class="animated-card" data-visible>
+                <h2 class="section-title">Tối Ưu Hoá Tệp Đầu Ra</h2>
+                <p>Kịch bản đã được tối ưu hóa để tạo ra các tệp 3GP siêu nhẹ, phù hợp với các thiết bị cũ bằng cách:</p>
+                <ul class="features-grid" style="margin-top: 20px;">
+                    <li class="feature-item">Giảm FPS xuống 15 fps.</li>
+                    <li class="feature-item">Giảm độ phân giải video.</li>
+                    <li class="feature-item">Giảm bitrate và chất lượng video.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="explanation" class="container">
+            <div class="animated-card" data-visible>
+                <h2 class="section-title">Giải Thích Chi Tiết</h2>
+                <ol class="explanation-list">
+                    <li class="explanation-item">
+                        <h3><span>1</span>Lặp qua tất cả tệp .mp4</h3>
+                        <p>Sử dụng một vòng lặp `for` trong bash để duyệt qua mọi tệp có đuôi .mp4 trong thư mục làm việc hiện tại.</p>
+                        <div class="code-block">for file in *.mp4; do</div>
+                    </li>
+                    <li class="explanation-item">
+                        <h3><span>2</span>Kiểm tra định dạng tệp</h3>
+                        <p>Đảm bảo rằng chỉ các tệp có thật và có đuôi `.mp4` mới được xử lý để tránh lỗi.</p>
+                        <div class="code-block">if [[ -f "$file" && "$file" == *.mp4 ]]; then</div>
+                    </li>
+                    <li class="explanation-item">
+                        <h3><span>3</span>Tạo tên tệp đầu ra</h3>
+                        <p>Xây dựng tên tệp 3gp tương ứng trong một thư mục đầu ra, sử dụng biến đếm để đánh số.</p>
+                        <div class="code-block">output_file="$output_dir/$counter.3gp"</div>
+                    </li>
+                     <li class="explanation-item">
+                        <h3><span>4</span>Thực thi chuyển đổi</h3>
+                        <p>Gọi `ffmpeg` với các tham số tối ưu hóa để chuyển đổi. `-r 15` để đặt fps, `-s` cho độ phân giải, `-vb` cho bitrate video, cùng các tùy chọn khác cho âm thanh.</p>
+                        <div class="code-block" data-code>ffmpeg -y -i "$file" -r 15 -s 352x288 -vb 400k -acodec aac -strict experimental -ac 1 -ar 8000 -ab 24k "$output_file"<button class="copy-btn">Copy</button></div>
+                    </li>
+                    <li class="explanation-item">
+                        <h3><span>5</span>Tăng biến đếm</h3>
+                        <p>Sau mỗi lần chuyển đổi thành công, tăng giá trị của biến đếm lên một để chuẩn bị cho tệp tiếp theo.</p>
+                        <div class="code-block">((counter++))</div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+         <section id="run" class="container">
+            <div class="animated-card" data-visible>
+                <h2 class="section-title">Thực Thi</h2>
+                <ol class="run-steps">
+                    <li class="run-step">
+                        <div class="run-step-number">01</div>
+                        <div class="run-step-text">Tập hợp tất cả video MP4 bạn muốn chuyển đổi vào một thư mục trống.</div>
+                    </li>
+                     <li class="run-step">
+                        <div class="run-step-number">02</div>
+                        <div class="run-step-text">Sao chép tệp kịch bản `3gp.sh` vào bên trong thư mục chứa video đó.</div>
+                    </li>
+                     <li class="run-step">
+                        <div class="run-step-number">03</div>
+                        <div class="run-step-text">Mở terminal tại thư mục đó và chạy lệnh `bash 3gp.sh`. Quá trình chuyển đổi sẽ bắt đầu và tạo các tệp 3GP trong giây lát.</div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+         <section id="note" class="container">
+             <div class="animated-card" data-visible>
+                <h2 class="section-title">Lưu Ý Quan Trọng</h2>
+                <div class="note-card">
+                   <h3>Cảnh Báo Về Dung Lượng!</h3>
+                   <p>Quá trình chuyển đổi có thể tạo ra tệp 3GP có dung lượng LỚN HƠN tệp MP4 đầu vào nếu video gốc có bitrate quá thấp. Để có kết quả tối ưu và dung lượng nhỏ nhất, bạn nên sử dụng các video gốc có chất lượng 144p hoặc 240p.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
     
-    <span class="text-cyan-400"># 2. Check if file is .mp4</span>
-    <span class="text-purple-400">if</span> [[ -f <span class="text-yellow-400">"$file"</span> &amp;&amp; <span class="text-yellow-400">"$file"</span> == *.mp4 ]]; <span class="text-purple-400">then</span>
-        
-        <span class="text-cyan-400"># 3. Create output filename</span>
-        output_file=<span class="text-yellow-400">"$output_dir/$counter.3gp"</span>
-        
-        <span class="text-cyan-400"># 4. Convert .mp4 to .3gp using ffmpeg</span>
-        ffmpeg -y -i <span class="text-yellow-400">"$file"</span> \
-            -r 20 -s 352x288 -vb 400k \
-            -acodec aac -strict experimental -ac 1 -ar 8000 -ab 24k \
-            <span class="text-yellow-400">"$output_file"</span>
-            
-        <span class="text-cyan-400"># 5. Increment counter for sequential naming</span>
-        ((counter++))
-    <span class="text-purple-400">fi</span>
-<span class="text-purple-400">done</span></pre>
-                    </div>
-                </div>
-            </section>
-            
-            <hr class="section-divider my-12">
-            
-            <!-- Run Section -->
-            <section id="run" class="scroll-mt-20">
-                <h2 class="text-3xl font-semibold mb-6 text-cyan-400 flex items-center">
-                    <i class="fas fa-play mr-3 feature-icon"></i> RUN
-                </h2>
-                <div class="bg-gray-900 bg-opacity-50 rounded-xl p-6 shadow-lg">
-                    <ol class="list-decimal list-inside space-y-3 text-gray-300">
-                        <li class="pl-2">Move all videos you want to convert into a single directory</li>
-                        <li class="pl-2">Copy the 3gp.sh executable file into that directory</li>
-                        <li class="pl-2">Run the file</li>
-                        <li class="pl-2">All MP4 videos will be converted to 3GP format in seconds</li>
-                    </ol>
-                    
-                    <div class="mt-6 bg-blue-900 bg-opacity-30 rounded-lg p-4 border border-blue-700">
-                        <p class="text-blue-300 flex items-start">
-                            <i class="fas fa-bolt mr-2 mt-1"></i>
-                            <span>The conversion process is optimized for speed while maintaining compatibility with older devices.</span>
-                        </p>
-                    </div>
-                </div>
-            </section>
-            
-            <hr class="section-divider my-12">
-            
-            <!-- Note Section -->
-            <section id="note" class="scroll-mt-20">
-                <h2 class="text-3xl font-semibold mb-6 text-cyan-400 flex items-center">
-                    <i class="fas fa-exclamation-triangle mr-3 feature-icon"></i> NOTE
-                </h2>
-                <div class="bg-gray-900 bg-opacity-50 rounded-xl p-6 shadow-lg">
-                    <div class="bg-red-900 bg-opacity-30 rounded-lg p-4 border border-red-700 mb-6">
-                        <p class="text-red-300 font-medium">
-                            <i class="fas fa-exclamation-circle mr-2"></i> IMPORTANT:
-                        </p>
-                        <p class="text-gray-300 mt-2">
-                            The output files may be LARGER in size than the input files. Before conversion, it's recommended to download videos at 144p quality to avoid excessive file sizes.
-                        </p>
-                    </div>
-                    
-                    <div class="text-center mt-8">
-                        <p class="text-xl text-gray-300">THANK YOU FOR READING</p>
-                        <p class="text-cyan-400 font-medium mt-2">NIYAKI PHẠM</p>
-                    </div>
-                </div>
-            </section>
-        </main>
-        
-        <!-- Footer -->
-        <footer class="mt-16 text-center text-gray-500 text-sm">
-            <p>© 2023 3GP CONVERST | A nostalgic video conversion tool</p>
-            <p class="mt-2">Designed with <i class="fas fa-heart text-red-400"></i> for retro tech enthusiasts</p>
-        </footer>
-    </div>
-    
+    <footer>
+        <p>Cảm ơn vì đã đọc NIYAKI PHẠM</p>
+    </footer>
+
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const cursorFollower = document.querySelector('.cursor-follower');
+            document.addEventListener('mousemove', e => {
+                cursorFollower.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+            });
+
+            document.addEventListener('mouseleave', () => {
+                cursorFollower.style.opacity = '0';
+            });
+            document.addEventListener('mouseenter', () => {
+                 cursorFollower.style.opacity = '0.15';
+            });
+
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+        
+            document.querySelectorAll('[data-visible]').forEach(card => {
+                observer.observe(card);
+            });
+
+            const heroTitle = document.querySelector('.hero-title');
+            if (heroTitle) {
+                 const textContent = '3GP CONVERST';
+                 heroTitle.textContent = '';
+                 textContent.split('').forEach(char => {
+                     const span = document.createElement('span');
+                     span.textContent = char === ' ' ? '\u00A0' : char;
+                     span.className = 'letter';
+                     heroTitle.appendChild(span);
+                 });
+            
+                anime.timeline({loop: false})
+                .add({
+                    targets: '.hero-title .letter',
+                    translateY: [-100,0],
+                    opacity: [0,1],
+                    easing: 'easeOutExpo',
+                    duration: 1400,
+                    delay: (el, i) => 30 * i + 500
+                });
+            }
+
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-target');
+            
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    tabContents.forEach(content => {
+                        content.style.display = 'none';
+                        content.classList.remove('active');
+                    });
+            
+                    const targetContent = document.querySelector(targetId);
+                    if (targetContent) {
+                        targetContent.style.display = 'block';
+                        targetContent.classList.add('active');
+                    }
                 });
             });
-        });
-        
-        // Add glow effect on hover for main title
-        const title = document.querySelector('h1');
-        title.addEventListener('mouseover', () => {
-            title.classList.add('animate-pulse');
-        });
-        title.addEventListener('mouseout', () => {
-            title.classList.remove('animate-pulse');
+
+            const copyButtons = document.querySelectorAll('.copy-btn');
+            copyButtons.forEach(button => {
+                 button.addEventListener('click', () => {
+                     const codeBlock = button.parentElement;
+                     const code = codeBlock.getAttribute('data-code');
+                     
+                     navigator.clipboard.writeText(code.trim()).then(() => {
+                         const originalText = button.textContent;
+                         button.textContent = 'Đã chép!';
+                         setTimeout(() => {
+                           button.textContent = originalText;
+                         }, 2000);
+                     }).catch(err => {
+                         console.error('Lỗi sao chép: ', err);
+                     });
+                 });
+            });
+
+             document.querySelectorAll('[data-code]').forEach(block => {
+                 const originalCode = block.textContent;
+                 const button = block.querySelector('.copy-btn');
+                 if (button) {
+                    const pureCode = originalCode.replace(button.textContent, '').trim();
+                    block.setAttribute('data-code', pureCode);
+                 } else {
+                     block.setAttribute('data-code', originalCode.trim());
+                 }
+            });
+
         });
     </script>
 </body>
